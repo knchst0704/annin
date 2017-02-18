@@ -1,0 +1,19 @@
+development:
+  adapter: sqlite3
+  encoding: utf8
+  pool: 5
+  database: development.sqlite
+
+test:
+  adapter: sqlite3
+  encoding: utf8
+  pool: 5
+  database: test.sqlite
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: annin_production
+  username: annin
+  password: <%= ENV['ANNIN_DATABASE_PASSWORD'] %>
