@@ -3,12 +3,57 @@
   <head>
     <title>Annin</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <body>
-    <%= yield %>
+  <body class="cjk">
+    <header>
+      <div class="container" style="border-bottom: solid 1px #ccc;">
+        <div class="navbar">
+          <section class="navbar-section">
+            <%= link_to root_path, class: "navbar-brand" do %>
+              <%= image_tag 'logo', style: 'height: 26px;vertical-align:bottom;' %>
+            <% end %>
+          </section>
+          <section class="navbar-section hide-xs">
+            <div class="input-group input-inline">
+              <input class="form-input" type="text"/>
+              <button class="btn btn-primary input-group-btn">検索</button>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="container show-xs">
+        <div class="navbar">
+          <section class="navbar-section">
+            <span class="label label-primary">人気のタグ一覧</span>
+          </section>
+          <div class="parent">
+            <% @tags.each do |tag| %>
+              <div class="child"><%= tag %></div>
+            <% end %>
+          </div>
+          <style media="screen">
+          .parent {
+            overflow-x: auto;
+            overflow-y:hidden;
+            width:100%;
+            white-space: nowrap;
+          }
+          .child {
+            text-align: center;
+            display: inline-block;
+            padding: 8px;
+            vertical-align: top;
+            white-space: normal;
+          }
+          </style>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
