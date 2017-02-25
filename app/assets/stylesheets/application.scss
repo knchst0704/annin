@@ -14,10 +14,55 @@
  *= require_self
  */
 
+ .parent {
+   overflow-x: auto;
+   overflow-y:hidden;
+   width:100%;
+   white-space: nowrap;
+   padding: 8px 0px;
+   margin-bottom: 16px;
+ }
+ .child {
+   text-align: center;
+   display: inline-block;
+   padding: 4px 8px;
+   vertical-align: top;
+   white-space: normal;
+ }
+
 .card {
   .card-title {
     font-size: 1em;
     font-weight: bold;
     line-height: 1.4em;
+  }
+}
+
+.vs_vttl {
+  h1 {
+    margin: 0px;
+    padding: 8px 0px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+.vs_vthmb {
+  img {
+    object-fit: cover;
+    width: 100%;
+  }
+}
+.vs_vtg {
+  ul {
+    margin: 0px;
+    list-style: none;
+    padding: 8px 0px;
+    li {
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 12px;
+      margin-top: 0px;
+      margin-bottom: 4px;
+    }
   }
 }
