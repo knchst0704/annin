@@ -13,8 +13,8 @@
       <div class="container" style="border-bottom: solid 1px #ccc;">
         <div class="navbar">
           <section class="navbar-section">
-            <%= link_to root_path, class: "navbar-brand" do %>
-              <%= image_tag 'logo', style: 'height: 26px;vertical-align:bottom;' %>
+            <%= link_to root_path, class: "navbar-brand", style: "text-decoration: none; font-weight: bold; font-size: 20px;" do %>
+              エロストリーム&nbsp;<i class="icon ion-ios-bolt"></i>
             <% end %>
           </section>
           <section class="navbar-section hide-xs">
@@ -29,7 +29,11 @@
         <div class="navbar">
           <div class="parent">
             <% @tags.each do |tag| %>
-              <div class="label label-primary child"><i class="icon ion-ios-pricetag"></i>&nbsp;<%= tag %></div>
+              <%= link_to search_videos_path(search: tag.to_s), style: "text-decoration: none;" do %>
+                <div class="label label-primary child">
+                  <i class="icon ion-ios-pricetag"></i>&nbsp;<%= tag %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>

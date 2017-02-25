@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="text-center">
+    <h5 style="margin: 16px 0px;">人気のタグ</h5>
+  </div>
+  <div class="divider"></div>
+  <div style="padding-left: .5rem;">
+    <% @tags.each do |tag| %>
+      <%= link_to search_videos_path(search: tag.to_s), style: "text-decoration: none;" do %>
+        <li class="label label-primary label-lg inline-block" style="padding: 4px 8px; margin-bottom: 4px;">
+          <i class="icon ion-ios-pricetag"></i>&nbsp;<%= tag.name %>
+        </li>
+      <% end %>
+    <% end %>
+  </div>
+</div>

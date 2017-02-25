@@ -10,6 +10,10 @@ class VideosController < ApplicationController
     @related_videos = Video.tagged_with(@video.tags, any: true).where.not(id: params[:id]).limit(10)
   end
 
+  def search
+    @videos = Video.tagged_with(params[:search]).page(params[:page])
+  end
+
   def fetch
     providers = [
       {

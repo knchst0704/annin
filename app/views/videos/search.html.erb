@@ -1,21 +1,14 @@
-<div class="home-index">
-  <div class="columns ">
+<div class="videos-search">
+  <div class="columns">
     <div class="column col-3 hide-sm">
       <%= render 'shared/sidebar' %>
     </div>
     <div class="column col-9 col-xs-12">
       <div class="columns">
         <div class="column col-12 col-xs-12">
-          <ul class="tab tab-block">
-            <% case params[:type] %>
-            <% when 'latest' %>
-              <li class="tab-item"><%= link_to "人気", root_path %></li>
-              <li class="tab-item active"><%= link_to "新着", root_path(type: 'latest') %></li>
-            <% else %>
-              <li class="tab-item active"><%= link_to "人気", root_path %></li>
-              <li class="tab-item"><%= link_to "新着", root_path(type: 'latest') %></li>
-            <% end %>
-          </ul>
+          <div class="text-center" style="padiing: 16px; font-size: 16px; font-weight: bold;">
+            『<%= params[:search] %>』がついた動画
+          </div>
         </div>
         <% @videos.each do |video| %>
           <div class="column col-4 col-xs-12" style="padding: 0px 10px;">
@@ -31,9 +24,6 @@
             <% end %>
           </div>
         <% end %>
-      </div>
-      <div class="pagination-wrapper text-center">
-        <%= paginate @videos %>
       </div>
     </div>
   </div>
