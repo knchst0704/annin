@@ -1,4 +1,5 @@
 class VideosController < ApplicationController
+  require 'video_manager'
 
   def show
     @video = Video.find_by(id: params[:id])

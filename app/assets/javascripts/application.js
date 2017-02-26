@@ -14,11 +14,3 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-
-$(function() {
-  $('iframe')
-  .on('load', function() {
-    $(this).height(this.contentWindow.document.documentElement.scrollHeight);
-  })
-  .trigger('load');
-});
