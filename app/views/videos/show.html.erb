@@ -7,8 +7,11 @@
       <div class="columns">
         <div class="column col-12 col-xs-12">
           <div class="vs_vthmb">
-            <!-- <%= image_tag @video.thumbnail %> -->
-            <%= raw @video.player %>
+            <% if @video.player.blank? %>
+              <%= image_tag @video.thumbnail %>
+            <% else %>
+              <%= raw @video.player %>
+            <% end %>
           </div>
           <div class="vs_vttl">
             <h1><%= @video.title %></h1>
