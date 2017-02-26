@@ -14,21 +14,13 @@
  *= require_self
  */
 
- .parent {
-   overflow-x: auto;
-   overflow-y:hidden;
-   width:100%;
-   white-space: nowrap;
-   padding: 8px 0px;
-   margin-bottom: 16px;
- }
- .child {
-   text-align: center;
-   display: inline-block;
-   padding: 4px 8px;
-   vertical-align: top;
-   white-space: normal;
- }
+a {
+  text-decoration: none;
+}
+
+.navbar-brand {
+  font-weight: bold; font-size: 20px;
+}
 
 .card {
   .card-title {
@@ -38,11 +30,58 @@
   }
 }
 
+.tile-gapless {
+  padding: 0px 10px;
+}
+
+.tiled {
+  .tile-icon {
+    img {
+      width: 120px;
+      height: 80px;
+    }
+  }
+  .tile-content {
+    h2 {
+      font-size: 1em;
+      font-weight: bold;
+      margin: 0px;
+    }
+    .meta {
+      span {
+        margin-right: 16px;
+      }
+      margin-top: 16px;
+      color: #666;
+    }
+  }
+}
+
+.heading {
+  padiing: 16px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.parent {
+  overflow-x: auto;
+  overflow-y:hidden;
+  width:100%;
+  white-space: nowrap;
+  padding: 8px 0px;
+  .child {
+    text-align: center;
+    display: inline-block;
+    padding: 4px 8px;
+    vertical-align: top;
+    white-space: normal;
+  }
+}
 .vs_vttl {
   h1 {
     margin: 0px;
     padding: 8px 0px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
   }
 }

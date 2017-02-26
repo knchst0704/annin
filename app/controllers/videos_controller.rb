@@ -18,7 +18,7 @@ class VideosController < ApplicationController
     providers = [
       {
         "site": "ジャビま",
-        "url": "http://javym.net/search/%E3%83%8A%E3%83%B3%E3%83%91/",
+        "url": "http://javym.net",#http://javym.net/search/%E3%83%8A%E3%83%B3%E3%83%91/
         "selectors": {
           "list": "article",
           "tag_list": ".tagList > li",
@@ -31,7 +31,7 @@ class VideosController < ApplicationController
       },
       {
         "site": "ぬきスト",
-        "url": "http://www.nukistream.com/category.php?id=27",
+        "url": "http://www.nukistream.com",#http://www.nukistream.com/category.php?id=27
         "selectors": {
           "list": "article",
           "tag_list": ".article_content > ul > li",
@@ -57,7 +57,7 @@ class VideosController < ApplicationController
       },
       {
         "site": "ぽよパラ",
-        "url": "http://poyopara.com/m/search.php?keyword=%E3%83%8A%E3%83%B3%E3%83%91",
+        "url": "http://poyopara.com/m/", #http://poyopara.com/m/search.php?keyword=%E3%83%8A%E3%83%B3%E3%83%91
         "selectors": {
           "list": "article",
           "tag_list": ".article_content > ul > li",
@@ -70,7 +70,7 @@ class VideosController < ApplicationController
       },
       {
         "site": "ERRY",
-        "url": "http://erry.one/search/%E3%83%8A%E3%83%B3%E3%83%91/",
+        "url": "http://erry.one", #http://erry.one/search/%E3%83%8A%E3%83%B3%E3%83%91/
         "selectors": {
           "list": "article",
           "tag_list": ".tagList > li",
@@ -83,7 +83,7 @@ class VideosController < ApplicationController
       },
       {
         "site": "iQoo",
-        "url": "http://iqoo.me/m/search/%E3%83%8A%E3%83%B3%E3%83%91/",
+        "url": "http://iqoo.me/m/",#http://iqoo.me/m/search/%E3%83%8A%E3%83%B3%E3%83%91/
         "selectors": {
           "list": "article",
           "tag_list": ".article_content > ul > li",
@@ -96,7 +96,7 @@ class VideosController < ApplicationController
       },
       {
         "site": "シコセン",
-        "url": "http://hikaritube.com/m/search.php?keyword=%E3%83%8A%E3%83%B3%E3%83%91",
+        "url": "http://hikaritube.com/m/",#http://hikaritube.com/m/search.php?keyword=%E3%83%8A%E3%83%B3%E3%83%91
         "selectors": {
           "list": "article",
           "tag_list": ".article_content > ul > li",
@@ -130,9 +130,10 @@ class VideosController < ApplicationController
         video[:title] = article.css(provider[:selectors][:title]).text
         video[:host] = provider[:site]
         video[:link] = url + article.css(provider[:selectors][:link]).attribute('href').value
+
         v = Video.new video
         v.tag_list.add tags
-        v.save!
+        v.save! unless Video.exists?(link: video[:link])
       end
     end
 

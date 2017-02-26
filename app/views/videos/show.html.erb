@@ -15,7 +15,7 @@
           <div class="vs_vtg">
             <ul>
               <% @video.tags.each do |tag| %>
-                <%= link_to search_videos_path(search: tag.to_s), style: "text-decoration: none;" do %>
+                <%= link_to search_videos_path(search: tag.to_s) do %>
                   <li class="label label-default">
                     <i class="icon ion-ios-pricetag-outline"></i>&nbsp;<%= tag %>
                   </li>
@@ -33,22 +33,13 @@
           </div>
         </div>
         <div class="column col-12 col-xs-12">
-          <div class="text-center" style="padiing: 16px; font-size: 16px; font-weight: bold;">
+          <div class="text-center heading">
             おすすめ動画
           </div>
         </div>
         <% @related_videos.each do |video| %>
-          <div class="column col-4 col-xs-12" style="padding: 0px 10px;">
-            <%= link_to video_path(video), style: "text-decoration: none;" do %>
-              <div class="tile">
-                <div class="tile-icon">
-                  <%= image_tag video.thumbnail, style: "width: 100px; height: 66px;" %>
-                </div>
-                <div class="tile-content">
-                  <h2 style="font-size: 1em; font-weight: bold; margin: 0px;"><%= video.title %></h2>
-                </div>
-              </div>
-            <% end %>
+          <div class="column col-4 col-xs-12 tile-gapless">
+            <%= render 'shared/video_tile', video: video %>
           </div>
         <% end %>
       </div>

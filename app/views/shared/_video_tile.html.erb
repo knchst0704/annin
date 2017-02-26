@@ -1,0 +1,18 @@
+<%= link_to video_path(video) do %>
+  <div class="tile tiled">
+    <div class="tile-icon">
+      <%= image_tag video.thumbnail %>
+    </div>
+    <div class="tile-content">
+      <h2><%= video.title %></h2>
+      <div class="meta">
+        <span>
+          <i class="icon ion-play"></i>&nbsp;<%= video.pv %>
+        </span>
+        <span>
+          <i class="icon ion-clock"></i>&nbsp;<%= video.duration %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -13,15 +13,15 @@
       <div class="container" style="border-bottom: solid 1px #ccc;">
         <div class="navbar">
           <section class="navbar-section">
-            <%= link_to root_path, class: "navbar-brand", style: "text-decoration: none; font-weight: bold; font-size: 20px;" do %>
+            <%= link_to root_path, class: "navbar-brand" do %>
               エロストリーム&nbsp;<i class="icon ion-ios-bolt"></i>
             <% end %>
           </section>
           <section class="navbar-section hide-xs">
-            <div class="input-group input-inline">
-              <input class="form-input" type="text"/>
-              <button class="btn btn-primary input-group-btn">検索</button>
-            </div>
+            <%= form_tag search_videos_path, method: :get, class: "input-group input-inline" do %>
+              <%= text_field_tag(:search, params[:search], class: "form-input") %>
+              <%= submit_tag "検索", class: "btn btn-primary input-group-btn" %>
+            <% end %>
           </section>
         </div>
       </div>
@@ -29,7 +29,7 @@
         <div class="navbar">
           <div class="parent">
             <% @tags.each do |tag| %>
-              <%= link_to search_videos_path(search: tag.to_s), style: "text-decoration: none;" do %>
+              <%= link_to search_videos_path(search: tag.to_s) do %>
                 <div class="label label-primary child">
                   <i class="icon ion-ios-pricetag"></i>&nbsp;<%= tag %>
                 </div>
