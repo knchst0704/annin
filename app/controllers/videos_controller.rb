@@ -1,7 +1,4 @@
 class VideosController < ApplicationController
-  require 'nokogiri'
-  require 'uri'
-  require 'open-uri'
 
   def show
     @video = Video.find_by(id: params[:id])
@@ -12,5 +9,11 @@ class VideosController < ApplicationController
 
   def search
     @videos = Video.tagged_with(params[:search]).page(params[:page])
+  end
+
+  def fetch
+    VideoManager.get_list
+    VideoManager.get_player
+    redirect_to root_path
   end
 end

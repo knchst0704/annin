@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :videos, only: [:show] do
     collection do
       get 'search'
+      get 'fetch'
     end
   end
 end
