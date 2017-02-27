@@ -127,14 +127,19 @@ class VideoManager
   end
 
   def self.get_player
-    Video.where(player: '').limit(10).where.not(link: nil).each do |video|
-      uri = URI.parse(video.link)
+    Video.where(player: nil).where.not(link: nil).each do |video|
       html = open(video.link) { |f| f.read }
       doc = Nokogiri::HTML.parse(html, nil, 'utf-8')
-      player = doc.css('#player > li > iframe').to_html
-      next if player.blank?
-      video.update(player: player)
-      p video
+      player = doc.css('#player > iframe').to_html
+      player = doc.css('#player > li > iframe').to_html if player.blank?
+      player = doc.css('#player > ul > li > iframe').to_html if player.blank?
+
+      if player.blank?
+        video.destroy
+      else
+        video.update(player: player)
+        p video
+      end
     end
   end
 end
