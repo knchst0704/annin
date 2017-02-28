@@ -6,5 +6,7 @@ class HomeController < ApplicationController
     else
       @videos = Video.where.not(player: nil).order(pv: :desc).page(params[:page]).per(24)
     end
+
+    set_meta_tags title: 'エロストリーム'
   end
 end
