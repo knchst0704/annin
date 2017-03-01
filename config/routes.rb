@@ -9,4 +9,12 @@ Rails.application.routes.draw do
       get 'fetch'
     end
   end
+
+  namespace :api, { format: 'json' } do
+    resources :videos, only: [:index, :show] do
+      collection do
+        get 'tag'
+      end
+    end
+  end
 end
