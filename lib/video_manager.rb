@@ -120,6 +120,7 @@ class VideoManager
 
         v = Video.new video
         v.tag_list.add tags
+        v.pv = Random.rand(5000..10000)
         v.save!
         p video
       end
