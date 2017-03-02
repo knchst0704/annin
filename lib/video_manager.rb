@@ -3,7 +3,7 @@ class VideoManager
     providers = [
       {
         "site": "ジャビま",
-        "url": "http://javym.net",#http://javym.net/search/%E3%83%8A%E3%83%B3%E3%83%91/
+        "url": "http://javym.net",
         "selectors": {
           "list": "article",
           "tag_list": ".tagList > li",
@@ -16,7 +16,7 @@ class VideoManager
       },
       {
         "site": "ぬきスト",
-        "url": "http://www.nukistream.com",#http://www.nukistream.com/category.php?id=27
+        "url": "http://www.nukistream.com",
         "selectors": {
           "list": "article",
           "tag_list": ".article_content > ul > li",
@@ -29,7 +29,7 @@ class VideoManager
       },
       {
         "site": "マスタベ",
-        "url": "http://masutabe.info", #http://masutabe.info/search/%E3%83%8A%E3%83%B3%E3%83%91/
+        "url": "http://masutabe.info",
         "selectors": {
           "list": "article",
           "tag_list": ".tagList > li",
@@ -42,7 +42,7 @@ class VideoManager
       },
       {
         "site": "ぽよパラ",
-        "url": "http://poyopara.com/m/", #http://poyopara.com/m/search.php?keyword=%E3%83%8A%E3%83%B3%E3%83%91
+        "url": "http://poyopara.com/m/",
         "selectors": {
           "list": "article",
           "tag_list": ".article_content > ul > li",
@@ -55,7 +55,7 @@ class VideoManager
       },
       {
         "site": "ERRY",
-        "url": "http://erry.one", #http://erry.one/search/%E3%83%8A%E3%83%B3%E3%83%91/
+        "url": "http://erry.one",
         "selectors": {
           "list": "article",
           "tag_list": ".tagList > li",
@@ -68,7 +68,7 @@ class VideoManager
       },
       {
         "site": "iQoo",
-        "url": "http://iqoo.me/m/",#http://iqoo.me/m/search/%E3%83%8A%E3%83%B3%E3%83%91/
+        "url": "http://iqoo.me/m/",
         "selectors": {
           "list": "article",
           "tag_list": ".article_content > ul > li",
@@ -81,7 +81,7 @@ class VideoManager
       },
       {
         "site": "シコセン",
-        "url": "http://hikaritube.com/m/",#http://hikaritube.com/m/search.php?keyword=%E3%83%8A%E3%83%B3%E3%83%91
+        "url": "http://hikaritube.com/m/",
         "selectors": {
           "list": "article",
           "tag_list": ".article_content > ul > li",
@@ -120,7 +120,7 @@ class VideoManager
 
         v = Video.new video
         v.tag_list.add tags
-        v.pv = Random.rand(5000..10000)
+        v.pv = 1
         v.save!
         p video
       end

@@ -7,7 +7,7 @@
       <h2><%= video.title %></h2>
       <div class="meta">
         <span>
-          <i class="icon ion-play"></i>&nbsp;<%= video.pv %>
+          <i class="icon ion-play"></i>&nbsp;<%= video.pv + Random.rand(5000..10000) %>
         </span>
         <span>
           <i class="icon ion-clock"></i>&nbsp;<%= video.duration %>
