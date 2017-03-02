@@ -19,7 +19,9 @@
         </div>
         <div id="videos">
           <div class="page">
-            <%= render partial: 'shared/video_tile', collection: @videos, as: :video %>
+            <div class="columns">
+              <%= render partial: 'shared/video_tile', collection: @videos, as: :video %>
+            </div>
           </div>
         </div>
         <%= paginate @videos %>
