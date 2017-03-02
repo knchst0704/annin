@@ -10,8 +10,8 @@
             『<%= params[:search] %>』がついた動画
           </div>
         </div>
-        <div id="videos">
-          <div class="page">
+        <div id="videos" class="column col-12 col-xs-12">
+          <div class="page columns">
             <%= render partial: 'shared/video_tile', collection: @videos, as: :video %>
           </div>
         </div>
