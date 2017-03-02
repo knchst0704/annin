@@ -3,6 +3,7 @@ class Api::VideosController < ApplicationController
 
   def index
     @videos = Video.all.limit(100)
+    response.headers['Content-Type'] = 'application/javascript; charset=utf-8'
   end
 
   def show
@@ -10,9 +11,11 @@ class Api::VideosController < ApplicationController
     @video.pv += 1
     @video.save
     @related_videos = Video.tagged_with(@video.tags, any: true).where.not(id: params[:id]).limit(10)
+    response.headers['Content-Type'] = 'application/javascript; charset=utf-8'
   end
 
   def tag
     @videos = Video.tagged_with(params[:name]).page(params[:page])
+    response.headers['Content-Type'] = 'application/javascript; charset=utf-8'
   end
 end
