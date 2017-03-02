@@ -18,6 +18,7 @@ gem 'acts-as-taggable-on', '~> 4.0'
 gem 'rails_admin', '~> 1.0'
 gem 'kaminari'
 gem 'meta-tags'
+gem 'jpbuilder'
 
 group :development, :test do
   gem 'byebug', platform: :mri
