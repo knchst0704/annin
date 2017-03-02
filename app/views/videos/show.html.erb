@@ -41,11 +41,7 @@
             おすすめ動画
           </div>
         </div>
-        <% @related_videos.each do |video| %>
-          <div class="column col-4 col-xs-12 tile-gapless">
-            <%= render 'shared/video_tile', video: video %>
-          </div>
-        <% end %>
+        <%= render partial: 'shared/video_tile', collection: @related_videos, as: :video %>
       </div>
     </div>
   </div>

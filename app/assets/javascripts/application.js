@@ -12,5 +12,18 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.infinitescroll
 //= require turbolinks
 //= require_tree .
+
+$(document).on('turbolinks:load', function() {
+	$('#videos .page').infinitescroll({
+		navSelector  : "ul.pagination",
+		nextSelector : "ul.pagination li.page-item a[rel=next]",
+		itemSelector : "#videos .video",
+    loading: {
+      msgText: "読み込み中...",
+      finishedMsg: " "
+    }
+	});
+});

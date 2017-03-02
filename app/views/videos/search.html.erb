@@ -10,11 +10,12 @@
             『<%= params[:search] %>』がついた動画
           </div>
         </div>
-        <% @videos.each do |video| %>
-          <div class="column col-4 col-xs-12 tile-gapless">
-            <%= render 'shared/video_tile', video: video %>
+        <div id="videos">
+          <div class="page">
+            <%= render partial: 'shared/video_tile', collection: @videos, as: :video %>
           </div>
-        <% end %>
+        </div>
+        <%= paginate @videos %>
       </div>
     </div>
   </div>
