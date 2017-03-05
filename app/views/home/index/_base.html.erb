@@ -1,0 +1,29 @@
+<div class="home-index">
+  <div class="columns">
+    <div class="column col-3 hide-sm">
+      <%= render 'shared/sidebar' %>
+    </div>
+    <div class="column col-9 col-xs-12">
+      <div class="columns">
+        <div class="column col-12 col-xs-12">
+          <ul class="tab tab-block">
+            <% case params[:type] %>
+            <% when 'latest' %>
+              <li class="tab-item"><%= link_to "人気", root_path %></li>
+              <li class="tab-item active"><%= link_to "新着", root_path(type: 'latest') %></li>
+            <% else %>
+              <li class="tab-item active"><%= link_to "人気", root_path %></li>
+              <li class="tab-item"><%= link_to "新着", root_path(type: 'latest') %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div id="videos" class="column col-12 col-xs-12">
+          <div class="page columns">
+            <%= render partial: 'shared/video_tile', collection: @videos, as: :video %>
+          </div>
+        </div>
+        <%= paginate @videos %>
+      </div>
+    </div>
+  </div>
+</div>

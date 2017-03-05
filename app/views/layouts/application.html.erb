@@ -1,56 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <%= csrf_meta_tags %>
-    <%= display_meta_tags %>
-    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
-    <%= stylesheet_link_tag 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css' %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <% if Rails.env.production? %>
-      <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-83262502-2', 'auto');
-        ga('send', 'pageview');
-      </script>
-    <% end %>
-  </head>
-  <body class="cjk">
-    <header>
-      <div class="container" style="border-bottom: solid 1px #ccc;">
-        <div class="navbar">
-          <section class="navbar-section">
-            <%= link_to root_path, class: "navbar-brand" do %>
-              <%= @sitename %>&nbsp;<i class="icon ion-ios-bolt"></i>
-            <% end %>
-          </section>
-          <section class="navbar-section hide-xs">
-            <%= form_tag search_videos_path, method: :get, class: "input-group input-inline" do %>
-              <%= text_field_tag(:search, params[:search], class: "form-input") %>
-              <%= submit_tag "検索", class: "btn btn-primary input-group-btn" %>
-            <% end %>
-          </section>
-        </div>
-      </div>
-      <div class="container show-xs">
-        <div class="navbar">
-          <div class="parent">
-            <% @tags.each do |tag| %>
-              <%= link_to search_videos_path(search: tag.to_s) do %>
-                <div class="label label-primary child">
-                  <i class="icon ion-ios-pricetag"></i>&nbsp;<%= tag %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </header>
-    <div class="container">
-      <%= yield %>
-    </div>
-  </body>
-</html>
+<% case request.subdomain %>
+<% when 'kyonyu' %>
+  <%= render 'layouts/kyonyu' %>
+<% else %>
+  <%= render 'layouts/base' %>
+<% end %>
