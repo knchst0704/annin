@@ -40,12 +40,14 @@
           <div class="text-center heading">
             おすすめ動画
           </div>
-        </div>
-        <div class="page columns">
-          <div class="admax-native" data-admax-id="9968d3ab6fa61aeefb45c668d996e340"></div>
-          <% @related_videos.each do |video| %>
-            <%= render 'shared/video_tile', video: video %>
-          <% end %>
+          <div class="columns">
+            <div class="column col-4 col-xs-12 tile-gapless">
+              <div class="admax-native" data-admax-id="9968d3ab6fa61aeefb45c668d996e340"></div>
+            </div>
+            <% @related_videos.each do |video| %>
+              <%= render 'shared/video_tile', video: video %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
