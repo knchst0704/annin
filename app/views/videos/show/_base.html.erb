@@ -41,7 +41,12 @@
             おすすめ動画
           </div>
         </div>
-        <%= render partial: 'shared/video_tile', collection: @related_videos, as: :video %>
+        <div class="page columns">
+          <div class="admax-native" data-admax-id="9968d3ab6fa61aeefb45c668d996e340"></div>
+          <% @related_videos.each do |video| %>
+            <%= render 'shared/video_tile', video: video %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
