@@ -7,6 +7,6 @@ class HomeController < ApplicationController
       @videos = Video.subdomain(request.subdomain).where.not(player: nil).order(pv: :desc).page(params[:page]).per(24)
     end
 
-    set_meta_tags title: @sitename
+    set_meta_tags(title: @sitename + " | 無料エロ動画まとめ")
   end
 end
