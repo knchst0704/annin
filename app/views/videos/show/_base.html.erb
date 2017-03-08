@@ -10,9 +10,7 @@
             <% if @video.player.blank? %>
               <%= image_tag @video.thumbnail %>
             <% else %>
-              <div class="video-responsive">
-                <%= raw @video.player %>
-              </div>
+              <%= raw @video.player %>
             <% end %>
           </div>
           <div class="vs_vttl">
