@@ -18,18 +18,6 @@ a {
   text-decoration: none;
 }
 
-#infscr-loading {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-#infscr-loading div{
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-}
-
 .navbar-brand {
   font-weight: bold; font-size: 20px;
 }
@@ -99,16 +87,16 @@ a {
 }
 .vs_vthmb {
   text-align: center;
-  iframe {
-    width: 70%;
-    height: 70vh;
-  }
-  @media (max-width: 480px) {
-    iframe {
-      width: 100%;
-      height: 39vh;
-    }
-  }
+  // iframe {
+  //   width: 70%;
+  //   height: 70vh;
+  // }
+  // @media (max-width: 480px) {
+  //   iframe {
+  //     width: 100%;
+  //     height: 39vh;
+  //   }
+  // }
   img {
     object-fit: cover;
     width: 100%;
