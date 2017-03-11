@@ -28,12 +28,13 @@
             </ul>
           </div>
           <div class="vs_vmt">
-            <span class="float-left">
+            <span>
               <i class="icon ion-play"></i>&nbsp;<%= @video.pv + 5432 %>
             </span>
-            <span class="float-right">
+            <span>
               <i class="icon ion-clock"></i>&nbsp;<%= @video.duration %>
             </span>
+            <%= link_to "動画が見れません！", report_video_path(@video) %>
           </div>
         </div>
         <div class="column col-12 col-xs-12">

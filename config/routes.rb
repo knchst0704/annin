@@ -8,5 +8,10 @@ Rails.application.routes.draw do
       get 'search'
       get 'fetch'
     end
+
+    member do
+      get :report
+      get :delete
+    end
   end
 end
