@@ -17,9 +17,9 @@ class VideosController < ApplicationController
   end
 
   def report
-    link = request.base_url + video_path(id: params[:id])
+    @video = Video.find_by(id: params[:id])
     notifier = Slack::Notifier.new "https://hooks.slack.com/services/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"
-    notifier.post text: "見れない動画の報告がありました。 <#{link}|確認する>/<#{link + '/delete'}|削除する>", icon_emoji: ":ghost:", username: "エロストBOT"
+    notifier.post text: "「#{@video.title}」が見れないらしいよ〜。 <#{request.base_url + video_path(id: params[:id])}|確認する>/<#{request.base_url + "/admin/video/#{params[:id]}/delete"}|削除する>", icon_emoji: ":ghost:", username: "エロストBOT"
     redirect_to video_path
   end
 
