@@ -19,6 +19,7 @@ gem 'rails_admin', '~> 1.0'
 gem 'kaminari'
 gem 'meta-tags'
 gem 'slack-notifier'
+gem 'natto'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -1,0 +1,95 @@
+{
+  "providers": [
+    {
+      "site": "ジャビま",
+      "url": "http://javym.net",
+      "selectors": {
+        "list": "article",
+        "tag_list": ".tagList > li",
+        "thumbnail": "figure > img",
+        "duration": "figure > .duration",
+        "title": "div > h2 > a",
+        "link": "div > h2 > a"
+      },
+      "except_indexes": [0]
+    },
+    {
+      "site": "ぬきスト",
+      "url": "http://www.nukistream.com",
+      "selectors": {
+        "list": "article",
+        "tag_list": ".article_content > ul > li",
+        "thumbnail": ".thumb > a > img",
+        "duration": ".thumb > a > span",
+        "title": ".article_content > h3 > a",
+        "link": ".thumb > a"
+      },
+      "except_indexes": [0]
+    },
+    {
+      "site": "マスタベ",
+      "url": "http://masutabe.info",
+      "selectors": {
+        "list": "article",
+        "tag_list": ".tagList > li",
+        "thumbnail": "figure > a > img",
+        "duration": "figure > a > .duration",
+        "title": "div > h2 > a",
+        "link": "div > h2 > a"
+      },
+      "except_indexes": [0]
+    },
+    {
+      "site": "ぽよパラ",
+      "url": "http://poyopara.com/m/",
+      "selectors": {
+        "list": "article",
+        "tag_list": ".article_content > ul > li",
+        "thumbnail": ".thumb > a > img",
+        "duration": ".thumb > a > span",
+        "title": ".article_content > h3 > a",
+        "link": ".thumb > a"
+      },
+      "except_indexes": [0, 1, 22, 23]
+    },
+    {
+      "site": "ERRY",
+      "url": "http://erry.one",
+      "selectors": {
+        "list": "article",
+        "tag_list": ".tagList > li",
+        "thumbnail": "figure > a > img",
+        "duration": "figure > a > .duration",
+        "title": "div > h2 > a",
+        "link": "div > h2 > a"
+      },
+      "except_indexes": []
+    },
+    {
+      "site": "iQoo",
+      "url": "http://iqoo.me/m/",
+      "selectors": {
+        "list": "article",
+        "tag_list": ".article_content > ul > li",
+        "thumbnail": ".thumb > a > img",
+        "duration": ".thumb > a > span",
+        "title": ".article_content > h3 > a",
+        "link": ".thumb > a"
+      },
+      "except_indexes": [0, 1, 22, 23]
+    },
+    {
+      "site": "シコセン",
+      "url": "http://hikaritube.com/m/",
+      "selectors": {
+        "list": "article",
+        "tag_list": ".article_content > ul > li",
+        "thumbnail": ".thumb > a > img",
+        "duration": ".thumb > a > span",
+        "title": ".article_content > h3 > a",
+        "link": ".thumb > a"
+      },
+      "except_indexes": [0, 1, 22, 23]
+    }
+  ]
+}

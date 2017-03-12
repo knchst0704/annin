@@ -1,100 +1,11 @@
 class VideoManager
   def self.get_list
-    providers = [
-      {
-        "site": "ジャビま",
-        "url": "http://javym.net",
-        "selectors": {
-          "list": "article",
-          "tag_list": ".tagList > li",
-          "thumbnail": "figure > img",
-          "duration": "figure > .duration",
-          "title": "div > h2 > a",
-          "link": "div > h2 > a"
-        },
-        "except_indexes": [0]
-      },
-      {
-        "site": "ぬきスト",
-        "url": "http://www.nukistream.com",
-        "selectors": {
-          "list": "article",
-          "tag_list": ".article_content > ul > li",
-          "thumbnail": ".thumb > a > img",
-          "duration": ".thumb > a > span",
-          "title": ".article_content > h3 > a",
-          "link": ".thumb > a"
-        },
-        "except_indexes": [0]
-      },
-      {
-        "site": "マスタベ",
-        "url": "http://masutabe.info",
-        "selectors": {
-          "list": "article",
-          "tag_list": ".tagList > li",
-          "thumbnail": "figure > a > img",
-          "duration": "figure > a > .duration",
-          "title": "div > h2 > a",
-          "link": "div > h2 > a"
-        },
-        "except_indexes": [0]
-      },
-      {
-        "site": "ぽよパラ",
-        "url": "http://poyopara.com/m/",
-        "selectors": {
-          "list": "article",
-          "tag_list": ".article_content > ul > li",
-          "thumbnail": ".thumb > a > img",
-          "duration": ".thumb > a > span",
-          "title": ".article_content > h3 > a",
-          "link": ".thumb > a"
-        },
-        "except_indexes": [0, 1, 22, 23]
-      },
-      {
-        "site": "ERRY",
-        "url": "http://erry.one",
-        "selectors": {
-          "list": "article",
-          "tag_list": ".tagList > li",
-          "thumbnail": "figure > a > img",
-          "duration": "figure > a > .duration",
-          "title": "div > h2 > a",
-          "link": "div > h2 > a"
-        },
-        "except_indexes": []
-      },
-      {
-        "site": "iQoo",
-        "url": "http://iqoo.me/m/",
-        "selectors": {
-          "list": "article",
-          "tag_list": ".article_content > ul > li",
-          "thumbnail": ".thumb > a > img",
-          "duration": ".thumb > a > span",
-          "title": ".article_content > h3 > a",
-          "link": ".thumb > a"
-        },
-        "except_indexes": [0, 1, 22, 23]
-      },
-      {
-        "site": "シコセン",
-        "url": "http://hikaritube.com/m/",
-        "selectors": {
-          "list": "article",
-          "tag_list": ".article_content > ul > li",
-          "thumbnail": ".thumb > a > img",
-          "duration": ".thumb > a > span",
-          "title": ".article_content > h3 > a",
-          "link": ".thumb > a"
-        },
-        "except_indexes": [0, 1, 22, 23]
-      }
-    ]
+    self.title # make dic
 
+    file = File.open("#{Rails.root}/providers.json") { |f| JSON.load(f) }
+    providers = file['providers']
     providers.each do |provider|
+      provider.deep_symbolize_keys!
       uri = URI.parse(provider[:url])
       url = "#{uri.scheme}://#{uri.host}"
       html = open(provider[:url]) { |f| f.read }
@@ -112,7 +23,8 @@ class VideoManager
           video[:thumbnail] = article.css(provider[:selectors][:thumbnail]).attribute('src').value
         end
         video[:duration] = article.css(provider[:selectors][:duration]).text
-        video[:title] = article.css(provider[:selectors][:title]).text
+        video[:title] = markov()
+        video[:original_title] = article.css(provider[:selectors][:title]).text
         video[:host] = provider[:site]
         video[:link] = url + article.css(provider[:selectors][:link]).attribute('href').value
 
@@ -142,5 +54,48 @@ class VideoManager
         p video
       end
     end
+  end
+
+  $h = {}
+  def self.title
+    Video.all.each do |video|
+      parse_text(video.original_title)
+    end
+  end
+
+  def self.parse_text(text)
+  	mecab = Natto::MeCab.new
+  	text = text.strip
+  	data = ["BEGIN", "BEGIN"]
+  	mecab.parse(text) do |a|
+  		if a.surface != nil
+  			data << a.surface
+  		end
+  	end
+  	data << "END"
+  	p data
+  	data.each_cons(3).each do |a|
+  		suffix = a.pop
+  		prefix = a
+  		$h[prefix] ||= []
+  		$h[prefix] << suffix
+  	end
+  end
+
+  def self.markov()
+  	random = Random.new
+  	prefix = ["BEGIN", "BEGIN"]
+  	ret = ""
+  	loop{
+  		n = $h[prefix].length
+  		prefix = [prefix[1] , $h[prefix][random.rand(0..n-1)]]
+  		ret += prefix[0] if prefix[0] != "BEGIN"
+  		if $h[prefix].last == "END"
+  			ret += prefix[1]
+  			break
+  		end
+  	}
+  	p "Result: " + ret
+  	return ret
   end
 end
