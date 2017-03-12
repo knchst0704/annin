@@ -1,9 +1,14 @@
 class VideoManager
+
+  $h = {}
+  $video_counter = 0
+
   def self.get_list
-    self.title # make dic
+    Video.all.each { |video| parse_text(video.original_title) }
 
     file = File.open("#{Rails.root}/providers.json") { |f| JSON.load(f) }
     providers = file['providers']
+
     providers.each do |provider|
       provider.deep_symbolize_keys!
       uri = URI.parse(provider[:url])
@@ -27,16 +32,19 @@ class VideoManager
         video[:original_title] = article.css(provider[:selectors][:title]).text
         video[:host] = provider[:site]
         video[:link] = url + article.css(provider[:selectors][:link]).attribute('href').value
+        video[:pv] = 1
 
         next if Video.exists?(link: video[:link])
 
         v = Video.new video
         v.tag_list.add tags
-        v.pv = 1
         v.save!
-        p video
+        $video_counter += 1
       end
     end
+
+    notifier = Slack::Notifier.new "https://hooks.slack.com/services/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"
+    notifier.post text: "#{$video_counter}本のビデオを新規に追加しました！", icon_emoji: ":ghost:", username: "エロストBOT"
   end
 
   def self.get_player
@@ -46,20 +54,7 @@ class VideoManager
       player = doc.css('#player > iframe').to_html
       player = doc.css('#player > li > iframe').to_html if player.blank?
       player = doc.css('#player > ul > li > iframe').to_html if player.blank?
-
-      if player.blank?
-        video.destroy
-      else
-        video.update(player: player)
-        p video
-      end
-    end
-  end
-
-  $h = {}
-  def self.title
-    Video.all.each do |video|
-      parse_text(video.original_title)
+      player.blank? ? video.destroy : video.update(player: player)
     end
   end
 
@@ -67,13 +62,8 @@ class VideoManager
   	mecab = Natto::MeCab.new
   	text = text.strip
   	data = ["BEGIN", "BEGIN"]
-  	mecab.parse(text) do |a|
-  		if a.surface != nil
-  			data << a.surface
-  		end
-  	end
+  	mecab.parse(text) { |a| data << a.surface unless a.surface.nil? }
   	data << "END"
-  	p data
   	data.each_cons(3).each do |a|
   		suffix = a.pop
   		prefix = a
