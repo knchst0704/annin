@@ -38,8 +38,7 @@ class VideoManager
 
         v = Video.new video
         v.tag_list.add tags
-        v.save!
-        $video_counter += 1
+        v.save ? $video_counter += 1 : next
       end
     end
 
