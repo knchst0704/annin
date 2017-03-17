@@ -1,4 +1,6 @@
 class VideoManager
+  require 'uri'
+
 
   $h = {}
   $video_counter = 0
@@ -22,11 +24,20 @@ class VideoManager
         tags = []
         article.css(provider[:selectors][:tag_list]).each { |tag| tags << tag.css('a').text }
         video = {}
-        if provider[:site] == 'ERRY'
+
+        # case provider[:site]
+        # when 'ERRY', 'iQoo', 'ぽよパラ', 'シコセン'
+        #   video[:thumbnail] = url + article.css(provider[:selectors][:thumbnail]).attribute('src').value
+        # else
+        #   video[:thumbnail] = article.css(provider[:selectors][:thumbnail]).attribute('src').value
+        # end
+
+        unless article.css(provider[:selectors][:thumbnail]).attribute('src').value =~ URI::regexp
           video[:thumbnail] = url + article.css(provider[:selectors][:thumbnail]).attribute('src').value
         else
           video[:thumbnail] = article.css(provider[:selectors][:thumbnail]).attribute('src').value
         end
+
         video[:duration] = article.css(provider[:selectors][:duration]).text
         video[:title] = markov()
         video[:original_title] = article.css(provider[:selectors][:title]).text
@@ -39,6 +50,7 @@ class VideoManager
         v = Video.new video
         v.tag_list.add tags
         v.save ? $video_counter += 1 : next
+        p v
       end
     end
 
@@ -53,8 +65,14 @@ class VideoManager
       player = doc.css('#player > iframe').to_html
       player = doc.css('#player > li > iframe').to_html if player.blank?
       player = doc.css('#player > ul > li > iframe').to_html if player.blank?
+      p player
       player.blank? ? video.destroy : video.update(player: player)
     end
+  end
+
+  def self.fetch
+    get_list
+    get_player
   end
 
   def self.parse_text(text)

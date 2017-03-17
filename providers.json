@@ -41,7 +41,7 @@
     },
     {
       "site": "ぽよパラ",
-      "url": "http://poyopara.com/m/",
+      "url": "http://poyopara.com",
       "selectors": {
         "list": "article",
         "tag_list": ".article_content > ul > li",
@@ -67,7 +67,7 @@
     },
     {
       "site": "iQoo",
-      "url": "http://iqoo.me/m/",
+      "url": "http://iqoo.me",
       "selectors": {
         "list": "article",
         "tag_list": ".article_content > ul > li",
@@ -80,7 +80,7 @@
     },
     {
       "site": "シコセン",
-      "url": "http://hikaritube.com/m/",
+      "url": "http://hikaritube.com",
       "selectors": {
         "list": "article",
         "tag_list": ".article_content > ul > li",
