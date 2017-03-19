@@ -1,15 +1,15 @@
 class VideoManager
   require 'uri'
 
-
-  $h = {}
   $video_counter = 0
 
   def self.get_list
-    Video.all.each { |video| parse_text(video.original_title) }
+    markov_dic_json = File.open("#{Rails.root}/markov_dic.json") { |f| JSON.load(f) }
+    dic = {}
+    markov_dic_json.map { |k, v| dic[JSON.parse(k)] = v }
 
-    file = File.open("#{Rails.root}/providers.json") { |f| JSON.load(f) }
-    providers = file['providers']
+    providers_json = File.open("#{Rails.root}/providers.json") { |f| JSON.load(f) }
+    providers = providers_json['providers']
 
     providers.each do |provider|
       provider.deep_symbolize_keys!
@@ -25,13 +25,6 @@ class VideoManager
         article.css(provider[:selectors][:tag_list]).each { |tag| tags << tag.css('a').text }
         video = {}
 
-        # case provider[:site]
-        # when 'ERRY', 'iQoo', 'ぽよパラ', 'シコセン'
-        #   video[:thumbnail] = url + article.css(provider[:selectors][:thumbnail]).attribute('src').value
-        # else
-        #   video[:thumbnail] = article.css(provider[:selectors][:thumbnail]).attribute('src').value
-        # end
-
         unless article.css(provider[:selectors][:thumbnail]).attribute('src').value =~ URI::regexp
           video[:thumbnail] = url + article.css(provider[:selectors][:thumbnail]).attribute('src').value
         else
@@ -39,7 +32,7 @@ class VideoManager
         end
 
         video[:duration] = article.css(provider[:selectors][:duration]).text
-        video[:title] = markov()
+        video[:title] = markov(dic)
         video[:original_title] = article.css(provider[:selectors][:title]).text
         video[:host] = provider[:site]
         video[:link] = url + article.css(provider[:selectors][:link]).attribute('href').value
@@ -53,6 +46,8 @@ class VideoManager
         p v
       end
     end
+
+    create_markov_dic
 
     notifier = Slack::Notifier.new "https://hooks.slack.com/services/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"
     notifier.post text: "#{$video_counter}本のビデオを新規に追加しました！", icon_emoji: ":ghost:", username: "エロストBOT"
@@ -75,7 +70,9 @@ class VideoManager
     get_player
   end
 
+  $h = {}
   def self.parse_text(text)
+    return if text.nil?
   	mecab = Natto::MeCab.new
   	text = text.strip
   	data = ["BEGIN", "BEGIN"]
@@ -89,20 +86,37 @@ class VideoManager
   	end
   end
 
-  def self.markov()
+  def self.markov(dic)
   	random = Random.new
   	prefix = ["BEGIN", "BEGIN"]
   	ret = ""
   	loop{
-  		n = $h[prefix].length
-  		prefix = [prefix[1] , $h[prefix][random.rand(0..n-1)]]
-  		ret += prefix[0] if prefix[0] != "BEGIN"
-  		if $h[prefix].last == "END"
+  		n = dic[prefix].length
+  		prefix = [prefix[1], dic[prefix][random.rand(0..n-1)]]
+  		ret += prefix[0] unless prefix[0] == "BEGIN"
+  		if dic[prefix].last == "END"
   			ret += prefix[1]
   			break
   		end
   	}
-  	p "Result: " + ret
+  	p "RESULTS: " + ret
   	return ret
+  end
+
+  def self.create_markov_dic
+    Video.all.each do |video|
+      parse_text(video.original_title)
+    end
+    open("#{Rails.root}/markov_dic.json", 'w') do |io|
+      p $h
+      JSON.dump($h, io)
+    end
+  end
+
+  def self.markov_test
+    markov_dic_json = File.open("#{Rails.root}/markov_dic.json") { |f| JSON.load(f) }
+    dic = {}
+    markov_dic_json.map { |k, v| dic[JSON.parse(k)] = v }
+    100.times { markov(dic) }
   end
 end
