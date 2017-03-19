@@ -32,7 +32,7 @@ class VideoManager
         end
 
         video[:duration] = article.css(provider[:selectors][:duration]).text
-        video[:title] = markov(dic)
+        video[:title] = included_tag_title(tags) if tags.length > 0
         video[:original_title] = article.css(provider[:selectors][:title]).text
         video[:host] = provider[:site]
         video[:link] = url + article.css(provider[:selectors][:link]).attribute('href').value
@@ -99,7 +99,7 @@ class VideoManager
   			break
   		end
   	}
-  	p "RESULTS: " + ret
+  	# p "RESULTS: " + ret
   	return ret
   end
 
@@ -117,6 +117,38 @@ class VideoManager
     markov_dic_json = File.open("#{Rails.root}/markov_dic.json") { |f| JSON.load(f) }
     dic = {}
     markov_dic_json.map { |k, v| dic[JSON.parse(k)] = v }
-    100.times { markov(dic) }
+
+    Video.all.limit(10).each do |video|
+      markov(dic)
+    end
+  end
+
+  def self.included_tag_title(tags)
+    markov_dic_json = File.open("#{Rails.root}/markov_dic.json") { |f| JSON.load(f) }
+    dic = {}
+    markov_dic_json.map { |k, v| dic[JSON.parse(k)] = v }
+
+    ret = ""
+    isBreak = false
+    loop {
+      title = markov(dic)
+      p "GENERATED TITLE: " + title
+      tags.each_with_index do |tag, index|
+        if title.include?(tag)
+          p tags
+          isBreak = true
+          ret = title
+          break
+        end
+        if index == tags.length - 1
+          isBreak = true
+          ret = title
+          break
+        end
+      end
+      break if isBreak
+    }
+
+    return ret
   end
 end
