@@ -108,7 +108,6 @@ class VideoManager
       parse_text(video.original_title)
     end
     open("#{Rails.root}/markov_dic.json", 'w') do |io|
-      p $h
       JSON.dump($h, io)
     end
   end
@@ -118,8 +117,8 @@ class VideoManager
     dic = {}
     markov_dic_json.map { |k, v| dic[JSON.parse(k)] = v }
 
-    Video.all.limit(10).each do |video|
-      markov(dic)
+    Video.all.limit(100).each do |video|
+      included_tag_title(video.tag_list) if video.tag_list.length > 0
     end
   end
 
@@ -132,10 +131,13 @@ class VideoManager
     isBreak = false
     loop {
       title = markov(dic)
-      p "GENERATED TITLE: " + title
       tags.each_with_index do |tag, index|
         if title.include?(tag)
-          p tags
+
+          p "-" * 100
+          p "GENERATED TITLE: " + title
+          p "USED TAGS: [#{tags}]"
+
           isBreak = true
           ret = title
           break
