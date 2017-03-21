@@ -135,8 +135,8 @@ class VideoManager
         if title.include?(tag)
 
           p "-" * 100
-          p "GENERATED TITLE: " + title
-          p "USED TAGS: [#{tags}]"
+          p title
+          p tags
 
           isBreak = true
           ret = title
