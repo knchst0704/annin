@@ -32,7 +32,7 @@ class VideoManager
         end
 
         video[:duration] = article.css(provider[:selectors][:duration]).text
-        video[:title] = included_tag_title(tags) if tags.length > 0
+        video[:title] = markov(dic)
         video[:original_title] = article.css(provider[:selectors][:title]).text
         video[:host] = provider[:site]
         video[:link] = url + article.css(provider[:selectors][:link]).attribute('href').value
@@ -57,11 +57,11 @@ class VideoManager
     Video.where(player: nil).where.not(link: nil).each do |video|
       html = open(video.link) { |f| f.read }
       doc = Nokogiri::HTML.parse(html, nil, 'utf-8')
-      player = doc.css('#player > iframe').to_html
-      player = doc.css('#player > li > iframe').to_html if player.blank?
-      player = doc.css('#player > ul > li > iframe').to_html if player.blank?
+      player = doc.css('#player > iframe')
+      player = doc.css('#player > li > iframe') if player.blank?
+      player = doc.css('#player > ul > li > iframe') if player.blank?
       p player
-      player.blank? ? video.destroy : video.update(player: player)
+      player.blank? ? video.destroy : video.update(player: player.to_html)
     end
   end
 
