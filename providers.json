@@ -3,6 +3,7 @@
     {
       "site": "ジャビま",
       "url": "http://javym.net",
+      "ranking_url": "http://javym.net/?s=d",
       "selectors": {
         "list": "article",
         "tag_list": ".tagList > li",
@@ -16,6 +17,7 @@
     {
       "site": "ぬきスト",
       "url": "http://www.nukistream.com",
+      "ranking_url": "http://www.nukistream.com/?s=v&d=d",
       "selectors": {
         "list": "article",
         "tag_list": ".article_content > ul > li",
@@ -29,6 +31,7 @@
     {
       "site": "マスタベ",
       "url": "http://masutabe.info",
+      "ranking_url": "http://masutabe.info/rank/",
       "selectors": {
         "list": "article",
         "tag_list": ".tagList > li",
@@ -42,6 +45,7 @@
     {
       "site": "ぽよパラ",
       "url": "http://poyopara.com",
+      "ranking_url": "http://poyopara.com/?s=v&d=d",
       "selectors": {
         "list": "article",
         "tag_list": ".article_content > ul > li",
@@ -55,6 +59,7 @@
     {
       "site": "ERRY",
       "url": "http://erry.one",
+      "ranking_url": "http://erry.one/rank/",
       "selectors": {
         "list": "article",
         "tag_list": ".tagList > li",
@@ -68,6 +73,7 @@
     {
       "site": "iQoo",
       "url": "http://iqoo.me",
+      "ranking_url": "http://iqoo.me/?s=v&d=d",
       "selectors": {
         "list": "article",
         "tag_list": ".article_content > ul > li",
@@ -81,6 +87,7 @@
     {
       "site": "シコセン",
       "url": "http://hikaritube.com",
+      "ranking_url": "http://hikaritube.com/?s=v&d=d",
       "selectors": {
         "list": "article",
         "tag_list": ".article_content > ul > li",

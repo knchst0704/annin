@@ -90,8 +90,6 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
-    natto (1.1.1)
-      ffi (>= 1.9.0)
     nested_form (0.3.2)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
@@ -194,7 +192,6 @@ DEPENDENCIES
   kaminari
   listen (~> 3.0.5)
   meta-tags
-  natto
   pg (~> 0.18)
   puma (~> 3.0)
   rails (~> 5.0.1)
@@ -209,4 +206,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.14.5
+   1.14.6

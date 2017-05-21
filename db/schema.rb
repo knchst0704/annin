@@ -42,14 +42,11 @@ ActiveRecord::Schema.define(version: 20170312165433) do
     t.text     "thumbnail"
     t.text     "description"
     t.text     "link"
-    t.boolean  "published",      default: false
     t.string   "duration"
     t.string   "host"
-    t.integer  "pv",             default: 0
+    t.text     "player"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.text     "player"
-    t.string   "original_title"
   end
 
 end
