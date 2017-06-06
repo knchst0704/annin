@@ -1,0 +1,27 @@
+<div class="columns">
+  <div class="column col-12">
+    <%= link_to "Fetch Video", fetch_videos_path, class: "btn btn-primary" %>
+  </div>
+  <% @videos.each do |video| %>
+    <div class="column col-6 col-xs-12">
+      <div class="card">
+        <div class="card-image">
+          <div class="video-responsive video-responsive-4-3">
+            <%= raw video.player %>
+          </div>
+        </div>
+        <div class="card-header">
+          <div class="card-title"><%= video.title %></div>
+          <div class="card-subtitle"><%= video.host %></div>
+        </div>
+        <div class="card-body">
+          <% if video.tags %>
+            <% video.tags.split(",").each do |tag| %>
+              <label class="chip"><%= tag %></label>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

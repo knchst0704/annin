@@ -25,7 +25,7 @@ class Kongo
         else
           video[:thumbnail] = article.css(provider[:selectors][:thumbnail]).attribute('src').value
         end
-
+        video[:tags] = tags
         video[:duration] = article.css(provider[:selectors][:duration]).text
         video[:title] = article.css(provider[:selectors][:title]).text
         video[:host] = provider[:site]
@@ -43,6 +43,18 @@ class Kongo
       end
     end
 
-    return $videos
+    Video.all.delete_all
+    $videos.each do |video|
+      v = Video.new
+      v.title = video[:title]
+      v.thumbnail = video[:thumbnail]
+      v.link = video[:link]
+      v.duration = video[:duration]
+      v.host = video[:host]
+      v.player = video[:player]
+      v.tags = video[:tags].join(',') if video[:tags].count > 0
+      v.save!
+      p v
+    end
   end
 end

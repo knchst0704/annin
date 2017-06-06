@@ -1,6 +1,29 @@
-<% case request.subdomain %>
-<% when 'kyonyu' %>
-  <%= render 'layouts/kyonyu' %>
-<% else %>
-  <%= render 'layouts/base' %>
-<% end %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+    <%= display_meta_tags %>
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
+    <%= stylesheet_link_tag 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+  <body class="cjk">
+    <header class="navbar">
+      <section class="navbar-section">
+        <a href="#" class="btn btn-link">Docs</a>
+        <a href="#" class="btn btn-link">Examples</a>
+      </section>
+      <section class="navbar-center">
+        Logo
+      </section>
+      <section class="navbar-section">
+        <a href="#" class="btn btn-link">Twitter</a>
+        <a href="#" class="btn btn-link">GitHub</a>
+      </section>
+    </header>
+    <div class="container grid-960">
+      <%= yield %>
+    </div>
+  </body>
+</html>
