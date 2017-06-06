@@ -13,6 +13,7 @@ class Kongo
       html = open(provider[:ranking_url]) { |f| f.read }
       doc = Nokogiri::HTML.parse(html, nil, 'utf-8')
 
+      videos = []
       articles = doc.search(provider[:selectors][:list])
       articles.each_with_index do |article, index|
         break if index >= 3
@@ -39,8 +40,22 @@ class Kongo
 
         video[:player] = player
 
+        videos << video
         $videos << video
       end
+
+      attachments = []
+      videos.each do |video|
+        a = {
+          "title": video[:title],
+          "title_link": video[:link],
+          "text": video[:player].html_safe
+        }
+        attachments << a
+      end
+
+      notifier = Slack::Notifier.new "https://hooks.slack.com/services/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"
+      notifier.post text: "【#{provider[:site]}の人気動画】", attachments: attachments, icon_emoji: ":ghost:", username: "エロプラBOT"
     end
 
     Video.all.delete_all
